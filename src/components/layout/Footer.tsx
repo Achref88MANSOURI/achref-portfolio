@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { features, siteConfig } from '@/config';
 import { changelogEnabled } from '@/lib/changelog';
 import { eventProps } from '@/lib/track';
-import EmailCTA from '@/components/EmailCTA';
+import { profileConfig } from '@/config/profile.config';
 import FooterTagline from '@/components/layout/FooterTagline';
 
 export default function Footer() {
@@ -23,9 +23,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
           <div className="break-all sm:break-normal">© {currentYear} {siteConfig.domain} | {siteConfig.systemVersion}</div>
           <div className="flex flex-wrap gap-3 sm:gap-4">
-            <EmailCTA source="footer" className="hover:text-[var(--terminal-text)] transition-colors whitespace-nowrap">
-              EMAIL
-            </EmailCTA>
+            <a href={`mailto:${profileConfig.email}`} className="hover:text-primary transition-colors">CONTACT</a>
             {changelogEnabled && (
               <Link href="/changelog" className="hover:text-[var(--terminal-text)] transition-colors whitespace-nowrap">
                 CHANGELOG

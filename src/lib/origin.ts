@@ -8,7 +8,8 @@ function parseOrigin(value: string | null): string | null {
 }
 
 export function isAllowedOrigin(request: Request, domain: string, extraAllowed: string[] = []): boolean {
-  const allowed = [`https://${domain}`, `https://www.${domain}`, ...extraAllowed];
+  const localOrigin = /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(domain) ? `http://${domain}` : `https://${domain}`;
+  const allowed = [localOrigin,`https://${domain}`, `https://www.${domain}`, ...extraAllowed];
   const origin = parseOrigin(request.headers.get('origin'));
   const referer = parseOrigin(request.headers.get('referer'));
 

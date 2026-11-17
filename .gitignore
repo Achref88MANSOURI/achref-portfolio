@@ -41,8 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # config
-/src/config
-/public/assets
 /public/data/*
 !/public/data/banned_ips.example.json
 /content
@@ -59,3 +57,11 @@ CLAUDE.md
 
 # analytics secrets
 .env.analytics
+
+# Local source material and intermediate QA
+/rsources/
+/rsources.zip
+/tmp/
+.env.*
+!.env.example
+!.env.analytics.example

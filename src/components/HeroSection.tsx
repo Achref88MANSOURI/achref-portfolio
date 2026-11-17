@@ -45,7 +45,7 @@ export default function HeroSection() {
               <ScrambleText text={contentConfig.home.hero.title} /><span className="blinking-cursor text-primary">_</span>
             </h1>
             <h2 className="animate-reveal text-[var(--terminal-text-dim)] text-xs sm:text-sm md:text-base lg:text-lg font-mono leading-normal max-w-full md:max-w-[600px] mt-2 whitespace-pre-line" style={{ animationDelay: '140ms' }}>
-              <span className="text-primary font-bold">{siteConfig.domain}</span> {contentConfig.home.hero.subtitle}
+              <span className="text-primary font-bold">{siteConfig.role}<br /></span> {contentConfig.home.hero.subtitle}
             </h2>
           </div>
           <div className="flex flex-wrap gap-3 sm:gap-4 z-10">
@@ -56,6 +56,7 @@ export default function HeroSection() {
               <span className="truncate font-mono text-xs sm:text-sm md:text-base group-hover/cta:translate-x-0.5 transition-transform">{contentConfig.home.hero.ctaSecondary.text}</span>
             </Link>
           </div>
+          <a className="z-10 font-mono text-sm text-primary underline underline-offset-4" href="mailto:achref.mansouri@supcom.tn">Contact · achref.mansouri@supcom.tn</a>
           <TrustBadges />
         </div>
       </div>

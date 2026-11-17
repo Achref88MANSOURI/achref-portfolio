@@ -1,64 +1,50 @@
-'use client';
+﻿import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import ProjectCover from '@/components/projects/ProjectCover';
+import { projects } from '@/config';
+import styles from './Projects.module.css';
 
-import { useCallback, useState } from 'react';
-import PageShell, { PageHeading } from '@/components/layout/PageShell';
-import UltrawideDetail from '@/components/UltrawideDetail';
-import { ProjectDetailContent } from './[id]/ProjectDetailClient';
-import { useEscapeKey } from '@/hooks/useEscapeKey';
-import { useUltrawide } from '@/hooks/useUltrawide';
-import Link from 'next/link';
-import { projects, contentConfig } from '@/config';
-import ProjectsTable from '@/components/projects/ProjectsTable';
-import { NO_CONTRIBUTION_STATS, type ContributionStats } from '@/lib/github-contributions';
-
-interface ProjectsClientProps {
-  contributionStats?: Record<string, ContributionStats | null>;
-}
-
-export default function ProjectsClient({ contributionStats = NO_CONTRIBUTION_STATS }: ProjectsClientProps) {
-  const ultrawide = useUltrawide();
-  // `?project=<id>` keeps the open project across reloads and shared links. Only ultrawide shows it.
-  const [selectedId, setSelectedId] = useState<string | null>(() =>
-    typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('project'));
-  const selected = ultrawide ? projects.find((p) => p.id === selectedId && p.visibility === 'public') : undefined;
-
-  const select = useCallback((id: string | null) => {
-    setSelectedId(id);
-    window.history.replaceState(null, '', id ? `/projects?project=${encodeURIComponent(id)}` : '/projects');
-  }, []);
-  const clearSelection = useCallback(() => select(null), [select]);
-  useEscapeKey(selected !== undefined, clearSelection);
-  const onSelect = ultrawide ? select : undefined;
-
-  const personalProjects = projects.filter((p) => p.projectType === 'personal');
-  const contributionProjects = projects.filter((p) => p.projectType === 'contribution');
+/** Server-rendered cards: every summary is readable without selecting a project. */
+export default function ProjectsClient() {
+  const visibleProjects = projects.filter(project => project.visibility === 'public');
 
   return (
-    <PageShell crumbs={[{ label: 'projects.yaml', href: '/projects' }]} rail>
-      <div className="uw-panel uw-panel-list flex flex-col gap-4 sm:gap-6 md:gap-8">
-      <PageHeading
-        title={contentConfig.projects.title}
-        subtitle={contentConfig.projects.subtitle}
-        aside={
-          <Link href="/" className="group flex items-center justify-center gap-2 rounded h-9 sm:h-10 px-3 sm:px-5 bg-[var(--terminal-border-alt)] hover:bg-[var(--terminal-border)] transition text-[var(--terminal-text)] text-xs sm:text-sm font-bold tracking-wide border border-transparent hover:border-[var(--terminal-text-dim)]">
-            <span aria-hidden="true" className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
-            <span className="hidden sm:inline">CD .. [ RETURN_HOME ]</span>
-            <span className="sm:hidden">HOME</span>
-          </Link>
-        }
-      />
-      <div className="flex flex-col gap-6 sm:gap-8">
-        <ProjectsTable title="Projects" icon="folder" projects={personalProjects} contributionStats={contributionStats} onSelect={onSelect} selectedId={selected?.id} />
-        {contributionProjects.length > 0 && (
-          <ProjectsTable title="Contributions" icon="group" projects={contributionProjects} contributionStats={contributionStats} onSelect={onSelect} selectedId={selected?.id} />
-        )}
+    <div className="min-h-screen bg-[var(--terminal-bg)] text-[var(--terminal-text)] font-display">
+      <Header />
+      <div className="mx-auto w-full max-w-[1360px] px-4 sm:px-6 lg:px-8">
+        <main id="main-content" tabIndex={-1} className={styles.main}>
+          <header className={styles.intro}>
+            <p className={styles.eyebrow}>Infrastructure · Detection · Automation</p>
+            <h1>Projects</h1>
+            <p>Four case studies connecting network infrastructure, security operations and analyst-assisted automation. Each describes the problem, my contribution and the available evidence.</p>
+          </header>
+          <div className={styles.list}>
+            {visibleProjects.map(project => (
+              <article key={project.id} aria-labelledby={`project-${project.id}`} className={styles.card}>
+                <div className={styles.cover}><ProjectCover project={project} /></div>
+                <div className={styles.body}>
+                  <p className={styles.context}>{project.context || project.type.replaceAll('_', ' ')}</p>
+                  <h2 id={`project-${project.id}`}><Link href={`/projects/${project.id}`}>{project.name}</Link></h2>
+                  <p className={styles.problem}>{project.problem || project.description}</p>
+                  {!!project.contributions?.length && (
+                    <div>
+                      <h3>My contribution</h3>
+                      <ul>{project.contributions.slice(0, 3).map(contribution => <li key={contribution}>{contribution}</li>)}</ul>
+                    </div>
+                  )}
+                  <p className={styles.technologies}>{project.tags.slice(0, 7).join(' · ')}</p>
+                  <div className={styles.actions}>
+                    <Link href={`/projects/${project.id}`} className={styles.primary}>View project →</Link>
+                    {project.repository && <a href={project.repository} target="_blank" rel="noopener noreferrer">GitHub ↗</a>}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </main>
+        <Footer />
       </div>
-      </div>
-      {ultrawide && (
-        <UltrawideDetail label="PROJECT">
-          {selected && <ProjectDetailContent key={selected.id} embedded project={selected} contributionStats={contributionStats[selected.id]} />}
-        </UltrawideDetail>
-      )}
-    </PageShell>
+    </div>
   );
 }

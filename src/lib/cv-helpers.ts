@@ -104,7 +104,7 @@ export interface ContactGroups {
 export const getContactInfo = (siteConfig: SiteConfig, email?: string, phone?: string): ContactGroups => {
   const linkedinLink = siteConfig.social.professional?.find(s => s.name.toLowerCase().includes('linkedin'));
   const githubLink = siteConfig.social.professional?.find(s => s.name.toLowerCase().includes('github'));
-  const website = siteConfig.domain ? `https://${siteConfig.domain}` : '';
+  const website = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
   const personal: ContactItem[] = [];
   if (email) personal.push({ text: email, href: `mailto:${email}` });

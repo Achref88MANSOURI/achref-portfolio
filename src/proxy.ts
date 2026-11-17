@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { siteConfig } from '@/config';
+import { siteConfig, siteUrl } from '@/config';
 
 const { security } = siteConfig;
 
 // Where browsers report blocked content; see app/api/csp-report. `report-uri` covers browsers without the Reporting API.
-const CSP_REPORT_PATH = `https://${siteConfig.domain}/api/csp-report`;
+const CSP_REPORT_PATH = `${siteUrl}/api/csp-report`;
 
 const isDev = process.env.NODE_ENV === 'development';
 

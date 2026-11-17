@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { siteConfig } from '@/config';
 
 function calculateAge(): string {
+  if (!siteConfig.birthDate) return '';
   const birthDate = new Date(
     siteConfig.birthDate.year,
     siteConfig.birthDate.month - 1,

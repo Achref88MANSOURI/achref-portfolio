@@ -15,7 +15,7 @@ export function GET() {
     '',
     '/* SITE */',
     'Stack: Next.js, React, TypeScript, Tailwind CSS',
-    'Content: MDX blog, self-hosted analytics, Cloudflare Turnstile',
+    'Template: Cyberfolio by iamxorum (MIT); personalised by Achref Mansouri',
   ];
 
   return new Response(`${lines.join('\n')}\n`, {

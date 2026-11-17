@@ -1,5 +1,4 @@
-import { siteConfig, projects } from '@/config';
-import { getContributionStatsForProjects } from '@/lib/github-contributions';
+import { siteConfig } from '@/config';
 import ProjectsClient from './ProjectsClient';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
@@ -12,13 +11,11 @@ export const metadata = pageMetadata({
 
 const breadcrumbs = breadcrumbJsonLd([{ name: 'Projects', path: '/projects' }]);
 
-export default async function Projects() {
-  const contributionStats = await getContributionStatsForProjects(projects, siteConfig.username);
-
+export default function Projects() {
   return (
     <>
       <JsonLd data={breadcrumbs} />
-      <ProjectsClient contributionStats={contributionStats} />
+      <ProjectsClient />
     </>
   );
 }

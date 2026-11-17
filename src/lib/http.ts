@@ -9,7 +9,7 @@ export const notFoundResponse = () => new NextResponse('Not found', { status: 40
 export function guardFeatureRequest(request: Request, enabled: boolean): NextResponse | null {
   if (!enabled) return notFoundResponse();
   if (!isDevelopment && !isAllowedOrigin(request, siteConfig.domain)) {
-    return NextResponse.redirect(`https://${siteConfig.domain}/`);
+    return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').href);
   }
   return null;
 }

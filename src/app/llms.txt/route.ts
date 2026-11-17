@@ -12,7 +12,9 @@ const entry = (name: string, url: string, note?: string) => `- [${name}](${url})
 // Follows the llms.txt convention (llmstxt.org): a title, a one-line summary, then lists of links.
 export function GET() {
   const pages = [
-    entry('About', `${siteUrl}/about`, 'Background, experience, education, skills and certifications.'),
+    entry('Home', siteUrl, 'Introduction and links to the portfolio sections.'),
+    entry('Profile', `${siteUrl}/profile`, 'Background, experience, education, skills, training and languages.'),
+    entry('Community', `${siteUrl}/community`, 'GDG On Campus SUP’COM and IndabaX 2025 involvement.'),
     entry('Projects', `${siteUrl}/projects`, 'Selected projects and open source contributions.'),
     ...(features.blog ? [entry('Blog', `${siteUrl}/blog`, 'Notes and write-ups.')] : []),
     ...(changelogEnabled ? [entry('Changelog', `${siteUrl}/changelog`, 'Release history of this site.')] : []),

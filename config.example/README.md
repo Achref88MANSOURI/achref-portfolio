@@ -1,3 +1,5 @@
+> This personalised fork versions public configuration in src/config and selected media in public/assets. Do not replace it with these upstream examples. See ../docs/PERSONALIZATION.md.
+
 # Configuration Guide
 
 Everything in this folder is a template. Copy it to `src/config/` (gitignored, so your real content never touches git) and fill it in with your own content.

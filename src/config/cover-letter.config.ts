@@ -1,0 +1,31 @@
+export interface CoverLetterStyle {
+  /** Unique. A CV style with the same id is paired with this letter (see `cvStyleId`). */
+  id: string;
+  name: string;
+  description: string;
+  /** Field name shown on the style card and in the PDF metadata (e.g. "DevOps"). */
+  domain: string;
+  /** Material Symbols icon name. */
+  icon: string;
+  /**
+   * The CV style this letter goes with. Defaults to this letter's own `id`.
+   * A CV style with a paired letter gets the "CV + LETTER" download; one without doesn't.
+   */
+  cvStyleId?: string;
+  /** Default "Dear Hiring Manager,". */
+  salutation?: string;
+  opening: string;
+  /** One entry per paragraph. */
+  body: string[];
+  closing: string;
+}
+
+export interface CoverLetterConfig {
+  styles: CoverLetterStyle[];
+}
+
+export const coverLetterConfig: CoverLetterConfig = { styles: [] };
+
+/** The cover letter that pairs with a CV style, if there is one. */
+export const getCoverLetterForCV = (cvStyleId: string): CoverLetterStyle | undefined =>
+  coverLetterConfig.styles.find(style => (style.cvStyleId ?? style.id) === cvStyleId);

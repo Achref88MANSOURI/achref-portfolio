@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { features, projects, siteConfig } from '@/config';
+import { profileConfig } from '@/config/profile.config';
 import { changelogEnabled } from '@/lib/changelog';
 import { isLightTheme, setLightTheme } from '@/lib/theme';
 import { track } from '@/lib/track';
@@ -64,8 +65,11 @@ export default function CommandPalette({ posts }: { posts: PaletteBlogPost[] }) 
     const socials = [...(siteConfig.social.professional ?? []), ...(siteConfig.social.gaming ?? []), ...(siteConfig.social.other ?? [])];
 
     return [
-      { id: 'nav-home', group: 'NAVIGATE', label: './home', icon: 'home', keywords: 'index main start', run: go('/') },
-      { id: 'nav-about', group: 'NAVIGATE', label: './profile', icon: 'person', keywords: 'about bio experience skills education', run: go('/about') },
+      { id: 'nav-home', group: 'NAVIGATE', label: './home', icon: 'home', keywords: 'index main start introduction', run: go('/') },
+      { id: 'nav-profile', group: 'NAVIGATE', label: 'Profile', icon: 'person', keywords: 'about bio academic training languages', run: go('/profile') },
+      ...['education', 'experience', 'skills'].map<PaletteCommand>(section => ({ id: 'profile-' + section, group: 'NAVIGATE', label: section, icon: 'person', keywords: 'profile about background', run: go('/profile#' + section) })),
+      { id: 'nav-community', group: 'NAVIGATE', label: 'Community', icon: 'person', keywords: 'associations leadership gdg indabax', run: go('/community') },
+      { id: 'nav-contact', group: 'NAVIGATE', label: 'Contact', icon: 'mail', keywords: 'email internship', run: () => { window.location.href = 'mailto:' + profileConfig.email; } },
       { id: 'nav-projects', group: 'NAVIGATE', label: './projects', icon: 'folder_open', keywords: 'work portfolio', run: go('/projects') },
       ...(features.blog ? [{ id: 'nav-blog', group: 'NAVIGATE' as const, label: './blog', icon: 'article', keywords: 'posts writing articles', run: go('/blog') }] : []),
       ...(features.life ? [{ id: 'nav-life', group: 'NAVIGATE' as const, label: './life', icon: 'directions_run', keywords: features.strava ? 'running strava hobbies' : 'hobbies music', run: go('/life') }] : []),
@@ -219,7 +223,7 @@ export default function CommandPalette({ posts }: { posts: PaletteBlogPost[] }) 
             aria-controls="palette-results"
             aria-activedescendant={results[active] ? `palette-${results[active].id}` : undefined}
             aria-label="Search pages, projects and actions"
-            placeholder="go to... (try: proj, blog, theme)"
+            placeholder="go to... (try: projects, education, contact)"
             spellCheck={false}
             autoComplete="off"
             className="flex-1 bg-transparent border-none outline-none text-sm text-[var(--terminal-text)] placeholder:text-[var(--terminal-text-dim)]"

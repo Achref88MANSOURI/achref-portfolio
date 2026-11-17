@@ -7,7 +7,7 @@ import { features, siteConfig } from '@/config';
 import { eventProps } from '@/lib/track';
 import AccentToggle from '@/components/AccentToggle';
 import ThemeToggle from '@/components/ThemeToggle';
-import EmailCTA from '@/components/EmailCTA';
+import { profileConfig } from '@/config/profile.config';
 import CommandPaletteButton from '@/components/CommandPaletteButton';
 import { STAGGER_STEP_DENSE_MS } from '@/lib/motion';
 
@@ -25,9 +25,12 @@ export default function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const navItems = [
-    { href: '/', label: './home' },
-    { href: '/about', label: './profile' },
-    { href: '/projects', label: './projects' },
+    { href: '/', label: 'Home' },
+    { href: '/profile', label: 'Profile' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/community', label: 'Community' },
+    ...(features.cv ? [{ href: '/cv', label: 'CV' }] : []),
+    { href: `mailto:${profileConfig.email}`, label: 'Contact' },
     ...(features.blog ? [{ href: '/blog', label: './blog' }] : []),
     ...(features.life ? [{ href: '/life', label: './life' }] : []),
   ];
@@ -89,7 +92,7 @@ export default function Header() {
         data-site-header
         style={{ viewTransitionName: 'site-header' } as React.CSSProperties}
       >
-      <div className="layout-content-container flex flex-col max-w-[1200px] w-full flex-1">
+      <div className="layout-content-container flex flex-col max-w-[1360px] w-full flex-1">
         <header className="flex items-center justify-between whitespace-nowrap px-3 sm:px-4 md:px-6 lg:px-10 py-2 sm:py-3">
           <Link href="/" aria-label={`Home, root@${siteConfig.username}`} className="flex items-center gap-2 sm:gap-4 text-[var(--terminal-text)] min-w-0 lg:shrink-0 hover:opacity-80 active:scale-[0.97] transition">
             <span aria-hidden="true" className="material-symbols-outlined text-primary text-xl sm:text-2xl flex-shrink-0">terminal</span>
@@ -113,31 +116,9 @@ export default function Header() {
                 </Link>
               ))}
             </nav>
-            <EmailCTA
-              source="header"
-              className="flex items-center justify-center w-11 h-11 sm:w-9 sm:h-9 rounded border border-[var(--terminal-border)] text-[var(--terminal-text-dim)] hover:text-primary hover:border-primary active:scale-95 transition flex-shrink-0"
-              ariaLabel={`Email ${siteConfig.fullName}`}
-              title={`Email ${siteConfig.fullName}`}
-            >
-              <span aria-hidden="true" className="material-symbols-outlined text-base sm:text-lg">mail</span>
-            </EmailCTA>
             {features.commandPalette && <CommandPaletteButton />}
             {features.accentPicker && <AccentToggle />}
             <ThemeToggle />
-            {features.cv && (
-              <Link
-                href="/cv"
-                prefetch={false}
-                {...eventProps('cv_cta_click', { from: 'header' })}
-                className={`flex min-w-[50px] sm:min-w-[60px] lg:min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded bg-primary hover:bg-primary/80 active:scale-[0.96] transition h-11 sm:h-9 px-3 sm:px-4 text-[var(--terminal-on-primary)] text-xs sm:text-xs lg:text-sm font-bold leading-normal tracking-[0.015em] shadow-[0_0_15px_rgba(var(--terminal-accent-rgb),0.4)] border border-primary/30 ${
-                  pathname === '/cv' ? 'ring-2 ring-primary/50' : ''
-                }`}
-                >
-                  <span aria-hidden="true" className="material-symbols-outlined text-sm sm:text-base md:text-[18px] sm:mr-1 md:mr-2">download</span>
-                  <span className="hidden sm:inline truncate font-mono">GET_CV.sh</span>
-                  <span className="sm:hidden font-mono">CV</span>
-              </Link>
-            )}
             <button
               ref={menuButtonRef}
               type="button"

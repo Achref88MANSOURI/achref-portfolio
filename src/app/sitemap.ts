@@ -15,7 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: siteUrl, changeFrequency: 'weekly', priority: 1 },
-    { url: `${siteUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${siteUrl}/profile`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${siteUrl}/community`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${siteUrl}/projects`, changeFrequency: 'monthly', priority: 0.8 },
     ...projects
       .filter((project) => project.visibility === 'public')

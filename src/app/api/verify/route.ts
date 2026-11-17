@@ -105,5 +105,5 @@ export async function POST(request: Request) {
 
 export async function GET() {
     if (!features.turnstile) return notFoundResponse();
-    return NextResponse.redirect(`https://${siteConfig.domain}/`);
+    return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').href);
 }

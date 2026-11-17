@@ -1,0 +1,110 @@
+[
+  {
+    "name": "soc-pipeline",
+    "source": "3s\\Automatisation intelligente du SOC-1.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "name": "soc-triage",
+    "source": "3s\\Enrichissement des preuves et triage IA-3.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "name": "soc-response",
+    "source": "3s\\Réponse aux incidents avec validation humaine-2.png",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "name": "soc-n8n",
+    "source": "3s\\impl_n8n_overview.png.png",
+    "crop": {
+      "left": 50,
+      "top": 225,
+      "width": 1780,
+      "height": 700
+    },
+    "width": 1780,
+    "height": 700
+  },
+  {
+    "name": "soc-case",
+    "source": "3s\\case true.png",
+    "crop": {
+      "left": 320,
+      "top": 270,
+      "width": 1110,
+      "height": 810
+    },
+    "width": 1110,
+    "height": 810
+  },
+  {
+    "name": "ids-dashboard",
+    "source": "NIDS\\1777409342025.jpeg",
+    "width": 1280,
+    "height": 616
+  },
+  {
+    "name": "ids-architecture",
+    "source": "NIDS\\1777409342146.jpeg",
+    "width": 982,
+    "height": 808
+  },
+  {
+    "name": "ids-kibana",
+    "source": "NIDS\\1777409342750.jpeg",
+    "width": 1280,
+    "height": 616
+  },
+  {
+    "name": "soar-workflow",
+    "source": "soar\\shuffle_workflow.png",
+    "width": 1254,
+    "height": 712
+  },
+  {
+    "name": "soar-case",
+    "source": "soar\\thehive_case.png",
+    "width": 1914,
+    "height": 850
+  },
+  {
+    "name": "soar-wazuh",
+    "source": "soar\\wazuh_dashboard.png",
+    "width": 1914,
+    "height": 911
+  },
+  {
+    "name": "community-gdg",
+    "source": "vie associative\\media manager in gdgoncampus supcom\\IMG_0876.JPG",
+    "width": 1200,
+    "height": 675
+  },
+  {
+    "name": "community-indabax",
+    "source": "vie associative\\oc in indabax 2025\\499703004_723595060060151_3903114194802102188_n.jpg",
+    "width": 1200,
+    "height": 800
+  },
+  {
+    "name": "community-gdg-team",
+    "source": "vie associative\\media manager in gdgoncampus supcom\\IMG_0870.JPG",
+    "width": 1400,
+    "height": 787
+  },
+  {
+    "name": "community-indabax-event",
+    "source": "vie associative\\oc in indabax 2025\\501313093_17955396377953350_7960500306543390616_n.jpg",
+    "width": 1400,
+    "height": 935
+  },
+  {
+    "name": "profile-banner",
+    "source": "profile/Image ChatGPT 16 nov. 2026, 22_30_08.jpg",
+    "width": 2000,
+    "height": 1125
+  }
+]

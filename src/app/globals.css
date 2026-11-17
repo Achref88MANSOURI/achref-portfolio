@@ -330,11 +330,12 @@ html.calm::view-transition-group(*) {
 }
 
 .animate-reveal {
-  animation: reveal-in 0.6s var(--ease-out) both;
-  animation-play-state: paused;
+  animation: none;
 }
-html.boot-done .animate-reveal {
-  animation-play-state: running;
+@media (prefers-reduced-motion: no-preference) {
+  html.boot-done .animate-reveal {
+    animation: reveal-in 0.6s var(--ease-out) backwards;
+  }
 }
 
 @keyframes pop-in {
@@ -648,8 +649,8 @@ html.boot-done .animate-reveal {
 /* Scroll-triggered entrances. `data-reveal` elements get `.is-visible` from useScrollReveal the first
    time they enter the viewport (after the boot screen). `backwards` fill means the animation only
    drives the start state, so hover transforms on cards keep working afterwards. */
-.scroll-reveal:not(.is-visible) {
-  opacity: 0;
+.scroll-reveal {
+  opacity: 1;
 }
 .scroll-reveal.is-visible {
   animation: scroll-reveal-in 0.6s var(--ease-out) var(--reveal-delay, 0ms) backwards;
@@ -703,8 +704,8 @@ html.boot-done .animate-reveal {
 }
 
 /* Fade-only variant for elements that can't take a transform reliably (table rows). */
-.scroll-reveal-fade:not(.is-visible) {
-  opacity: 0;
+.scroll-reveal-fade {
+  opacity: 1;
 }
 .scroll-reveal-fade.is-visible {
   animation: scroll-reveal-fade-in 0.5s ease-out var(--reveal-delay, 0ms) backwards;
@@ -1035,3 +1036,6 @@ html.light .text-red-400 { color: #b91c1c; }
     animation: none !important;
   }
 }
+
+.case-heading { font-family: var(--font-display), monospace; font-size: 1rem; color: var(--terminal-accent); margin-bottom: 1rem; }
+:focus-visible { outline: 2px solid var(--terminal-accent); outline-offset: 4px; }

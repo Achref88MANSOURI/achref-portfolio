@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import CaseStudy from '@/components/projects/CaseStudy';
 import CopyLinkButton from '@/components/CopyLinkButton';
 import PageShell from '@/components/layout/PageShell';
 import Reveal from '@/components/Reveal';
@@ -150,6 +151,8 @@ export function ProjectDetailContent({ project, contributionStats, embedded = fa
           {project.description}
         </p>
       </Reveal>
+
+      <CaseStudy project={project} />
 
       {project.tags.length > 0 && (
         <Reveal as="section" className="flex flex-col gap-2">

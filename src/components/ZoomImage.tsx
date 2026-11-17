@@ -6,7 +6,7 @@ import { useEffect, useEffectEvent, useRef, useState } from 'react';
  * A post image that opens full size in a modal on click; its alt text doubles as the visible caption.
  * With more images in the post, arrow keys (or the side buttons) step through them without closing.
  */
-export default function ZoomImage({ src, alt }: { src: string; alt: string }) {
+export default function ZoomImage({ src, alt, width, height }: { src: string; alt: string; width?: number; height?: number }) {
   const [open, setOpen] = useState(false);
   // Closing hands focus back to the image, which would draw the focus ring around it until the next click or Tab.
   const [justClosed, setJustClosed] = useState(false);
@@ -69,9 +69,9 @@ export default function ZoomImage({ src, alt }: { src: string; alt: string }) {
         className="print-keep block w-full cursor-zoom-in rounded border border-[var(--terminal-border)] transition-[border-color,transform] duration-150 hover:border-primary active:scale-[0.99]"
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- MDX content images have no known dimensions for next/image */}
-        <img src={src} alt={alt} loading="lazy" className="w-full rounded" />
+        <img src={src} alt={alt} width={width} height={height} loading="lazy" className="w-full max-h-[620px] object-contain rounded" />
       </button>
-      {alt && <figcaption aria-hidden="true" className="font-mono text-xs leading-relaxed text-[var(--terminal-text-dim)]">{alt}</figcaption>}
+      {alt && <figcaption className="font-mono text-xs leading-relaxed text-[var(--terminal-text-dim)]">{alt}</figcaption>}
       {open && (
         <dialog
           ref={dialogRef}
@@ -81,6 +81,7 @@ export default function ZoomImage({ src, alt }: { src: string; alt: string }) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
           <img src={src} alt={alt} className="max-h-[94vh] max-w-[96vw] rounded object-contain" />
+          <button type="button" onClick={() => dialogRef.current?.close()} className="absolute right-2 top-2 rounded bg-black px-3 py-2 text-white" aria-label="Close enlarged image">Close ×</button>
           {position.total > 1 && (
             <>
               {(['prev', 'next'] as const).map((side) => {

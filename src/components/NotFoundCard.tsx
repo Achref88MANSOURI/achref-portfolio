@@ -8,7 +8,7 @@ import { track } from '@/lib/track';
 import { OPEN_PALETTE_EVENT } from './CommandPalette';
 
 const PAGES = [
-  { href: '/about', label: './profile', icon: 'person' },
+  { href: '/', label: 'Home', icon: 'person' },
   { href: '/projects', label: './projects', icon: 'folder_open' },
   ...(features.blog ? [{ href: '/blog', label: './blog', icon: 'article' }] : []),
   ...(features.life ? [{ href: '/life', label: './life', icon: 'directions_run' }] : []),

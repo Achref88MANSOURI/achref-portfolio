@@ -30,3 +30,9 @@ test('accepts the extra origins it is given', () => {
   assert.equal(allowed({ origin: 'http://localhost:3000' }, ['http://localhost:3000']), true);
   assert.equal(allowed({ origin: 'http://localhost:3000' }), false);
 });
+
+ test('accepts only the configured loopback port for a local portfolio', () => {
+  assert.equal(isAllowedOrigin(request({ origin: 'http://localhost:3000' }), 'localhost:3000'), true);
+  assert.equal(isAllowedOrigin(request({ origin: 'http://localhost:3001' }), 'localhost:3000'), false);
+  assert.equal(isAllowedOrigin(request({ origin: 'http://localhost.evil.com:3000' }), 'localhost:3000'), false);
+});

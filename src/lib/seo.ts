@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { education, experience, getTopSkills, siteConfig } from '@/config';
 import { isOngoingEnd } from '@/lib/cv-helpers';
 
-export const siteUrl = `https://${siteConfig.domain}`;
+export { siteUrl } from '@/config/url';
+import { siteUrl } from '@/config/url';
 
 interface PageMetadataOptions {
   path: string;
@@ -59,7 +60,7 @@ export function personJsonLd() {
     sameAs: (siteConfig.social.professional || []).filter((link) => link.showInFooter).map((link) => link.url),
     ...(currentRole && { worksFor: { '@type': 'Organization', name: currentRole.company } }),
     ...(education.length > 0 && {
-      alumniOf: education.map((edu) => ({ '@type': 'EducationalOrganization', name: edu.institution })),
+      alumniOf: education.filter((edu) => Number.parseInt(edu.endDate || '9999') < new Date().getFullYear()).map((edu) => ({ '@type': 'EducationalOrganization', name: edu.institution })),
     }),
     knowsAbout: getTopSkills(15).map((skill) => skill.name),
   };

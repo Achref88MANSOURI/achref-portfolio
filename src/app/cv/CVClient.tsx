@@ -1,33 +1,13 @@
 'use client';
-
-import { useState } from 'react';
-import { features } from '@/config';
 import PageShell from '@/components/layout/PageShell';
-import TabSwitcher, { type CVTab } from '@/components/cv/TabSwitcher';
-import ResumePanel from '@/components/cv/ResumePanel';
-import CoverLetterPanel from '@/components/cv/CoverLetterPanel';
-import { useSignature } from '@/hooks/useSignature';
-import { NO_CONTRIBUTION_STATS, type ContributionStats } from '@/lib/github-contributions';
-
-interface CVClientProps {
-  contributionStats?: Record<string, ContributionStats | null>;
-  email?: string;
-  phone?: string;
-}
-
-export default function CVClient({ contributionStats = NO_CONTRIBUTION_STATS, email, phone }: CVClientProps) {
-  const [activeTab, setActiveTab] = useState<CVTab>('resume');
-  // Held here so unlocking on one tab signs the PDFs on the other.
-  const signature = useSignature();
-
-  return (
-    <PageShell width="xl" viewport printable boot={false} mainClassName="uw-cv-main">
-      {features.coverLetter && <TabSwitcher activeTab={activeTab} onChange={setActiveTab} />}
-
-      <div key={activeTab} className="uw-cv animate-fade-in-fast print:animate-none">
-        {activeTab === 'resume' && <ResumePanel contributionStats={contributionStats} email={email} phone={phone} signature={signature} />}
-        {features.coverLetter && activeTab === 'letter' && <CoverLetterPanel email={email} phone={phone} signature={signature} />}
-      </div>
-    </PageShell>
-  );
+import CVTemplate from '@/components/documents/CVTemplate';
+import ScaleToFit from '@/components/ScaleToFit';
+import { usePdfDownload } from '@/hooks/usePdfDownload';
+import { siteConfig, cvConfig, experience, education, certifications, languages, hobbies, projects } from '@/config';
+import type { ContributionStats } from '@/lib/github-contributions';
+export default function CVClient({email,phone}: {email?:string;phone?:string;contributionStats?:Record<string,ContributionStats|null>}) {
+ const download=usePdfDownload();
+ const props={style:cvConfig.styles[0],siteConfig,experience,education,certifications,languages,hobbies,projects,summary:cvConfig.summary,useColumnLayout:false};
+ const save=()=>download.download(async()=>{const [{pdf},{default:CVDocument}]=await Promise.all([import('@react-pdf/renderer'),import('@/components/documents/CVDocument')]);return {blob:await pdf(<CVDocument {...props} email={email} phone={phone}/>).toBlob(),filename:'Achref_Mansouri_CV.pdf'};});
+ return <PageShell boot={false} width="medium"><section className="space-y-5"><h1 className="text-3xl font-mono text-primary">Curriculum vitae</h1><p>Generated from this portfolio’s verified profile information. The original CV PDF has not been supplied.</p><p><a href="mailto:achref.mansouri@supcom.tn" className="text-primary underline">achref.mansouri@supcom.tn</a> · Tunis, Tunisia</p><button type="button" disabled={download.isDownloading} onClick={save} className="rounded bg-primary text-[var(--terminal-on-primary)] font-bold px-5 py-3">{download.isDownloading ? 'Generating PDF…' : 'Download generated CV (PDF)'}</button>{download.error && <p role="alert">{download.error}</p>}{download.succeeded && <p role="status">PDF generated. Check your downloads.</p>}<div className="overflow-hidden rounded bg-white"><ScaleToFit><CVTemplate {...props}/></ScaleToFit></div></section></PageShell>;
 }

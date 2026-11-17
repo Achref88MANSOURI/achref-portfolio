@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
-import { JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { siteConfig, features, analyticsConfig } from "../config";
 import "./globals.css";
@@ -11,7 +10,6 @@ import { ACCENT_COOKIE, THEME_COOKIE } from "@/lib/preferences";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import ScrollIndicator from "@/components/layout/ScrollIndicator";
 import CommandPalette from "@/components/CommandPalette";
-import KonamiCode from '@/components/KonamiCode';
 import AnalyticsEvents from "@/components/AnalyticsEvents";
 import { getSearchIndex } from "@/lib/blog";
 import { ANALYTICS_PATH } from "@/lib/analytics";
@@ -20,10 +18,9 @@ import { personJsonLd, siteUrl } from '@/lib/seo';
 import { INITIALIZED_KEY } from '@/lib/storage-keys';
 import { isDevelopment } from '@/lib/env';
 
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+const jetBrainsMono = localFont({
+  src: [{ path: '../../public/og-fonts/JetBrainsMono-Regular.ttf', weight: '300 500' }, { path: '../../public/og-fonts/JetBrainsMono-Bold.ttf', weight: '600 900' }],
+  variable: '--font-display', display: 'swap',
 });
 
 // Material Symbols isn't in next/font/google, so the icon font is self-hosted from
@@ -128,7 +125,7 @@ export default async function RootLayout({
         // Browser extensions (e.g. ColorZilla) add attributes to <body> before React hydrates.
         suppressHydrationWarning
       >
-        <KonamiCode />
+
         {features.scrollIndicator && <ScrollIndicator />}
         {features.smoothScroll && <SmoothScroll />}
         {features.commandPalette && <CommandPalette posts={getSearchIndex()} />}
