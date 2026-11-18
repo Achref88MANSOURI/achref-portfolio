@@ -9,7 +9,7 @@ export const profileConfig = {
     'Security Operations': 'Detection, alert collection, enrichment and case-management workflows in the documented SOC projects.',
     'Development & Automation': 'Python services, REST APIs, dashboards and n8n workflow orchestration.',
     'Threat Intelligence & AI-Assisted Triage': 'Threat context and retrieval for structured LLM-assisted assessment, with analyst oversight.',
-    'Security Foundations': 'Conceptual foundations for identity and access control; no claim of advanced implementation expertise.',
+    'Security Foundations': 'Identity and access fundamentals, including authentication, authorisation and least-privilege access.',
   } as Record<string, string>,
   community: [
   {
@@ -18,7 +18,7 @@ export const profileConfig = {
     "organisation": "GDG On Campus SUP’COM",
     "role": "Media Manager",
     "period": "",
-    "description": "A student community role alongside my engineering studies at SUP’COM, with involvement in its media activities. This is an associative role within the campus group.",
+    "description": "As Media Manager at GDG On Campus SUP’COM, I contribute to the campus community through its media activities alongside my engineering studies.",
     "image": "/assets/community-gdg.webp",
     "alt": "GDG On Campus SUP’COM — community gathering at Vectors in Orbit",
     "width": 1200,
@@ -32,7 +32,7 @@ export const profileConfig = {
       },
       {
         "src": "/assets/community-gdg-team.webp",
-        "alt": "GDG On Campus SUP’COM — group photograph from the supplied event resources",
+        "alt": "GDG On Campus SUP’COM — event group photograph",
         "width": 1400,
         "height": 787
       }
@@ -44,7 +44,7 @@ export const profileConfig = {
     "organisation": "IndabaX",
     "role": "Organising committee participant",
     "period": "2025",
-    "description": "Participation in the organisation of IndabaX 2025. The supplied photographs document the event and its organising community at SUP’COM.",
+    "description": "I took part in organising IndabaX 2025 at SUP’COM, contributing to the event alongside its organising community.",
     "image": "/assets/community-indabax.webp",
     "alt": "IndabaX 2025 — organising community at SUP’COM",
     "width": 1200,

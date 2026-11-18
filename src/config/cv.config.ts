@@ -42,7 +42,7 @@ export const cvConfig: CVConfig = {
       "id": "cybersecurity",
       "name": "Cybersecurity Internship",
       "domain": "Cybersecurity",
-      "description": "Portfolio-generated CV using verified profile information.",
+      "description": "Education, practical experience and projects for a cybersecurity internship.",
       "icon": "description",
       "showHobbies": false
     }

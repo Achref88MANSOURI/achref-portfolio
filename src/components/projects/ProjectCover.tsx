@@ -22,7 +22,7 @@ export default function ProjectCover({ project }: { project: Project }) {
         <li>02 · RouterContractV1 → validated JSON</li>
         <li>03 · CIS-inspired checks → findings & evidence</li>
       </ol>
-      <p className="text-xs text-[var(--terminal-text-muted)]">Source-based workflow · no device connection or automatic remediation</p>
+      <p className="text-xs text-[var(--terminal-text-muted)]">Configuration review · structured findings · remediation guidance</p>
     </div>
   );
 }

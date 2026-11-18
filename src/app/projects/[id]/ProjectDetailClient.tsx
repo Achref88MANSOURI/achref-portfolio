@@ -146,7 +146,7 @@ export function ProjectDetailContent({ project, contributionStats, embedded = fa
       </div>
 
       <Reveal as="section" className="flex flex-col gap-2">
-        <h2 className="text-[var(--terminal-text-dim)] text-xs font-mono uppercase tracking-widest"><TypedText text="README.md" /></h2>
+        <h2 className="text-[var(--terminal-text-dim)] text-xs font-mono uppercase tracking-widest"><TypedText text="Overview" /></h2>
         <p className="text-[var(--terminal-text)] text-sm sm:text-base leading-relaxed whitespace-pre-line">
           {project.description}
         </p>

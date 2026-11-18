@@ -66,7 +66,7 @@ export default function ProfileDetails() {
 
         <Section id="training" title="Certifications & Training">
           <div className={styles.training}>
-            <div><h3>Cisco Networking Academy</h3><ul>{certifications.map(item => <li key={item.id}>{item.name}</li>)}</ul><p className={styles.trainingNote}>CCNA entries are course certificates, not a claim of professional CCNA exam certification.</p></div>
+            <div><h3>Cisco Networking Academy</h3><ul>{certifications.map(item => <li key={item.id}>{item.name}</li>)}</ul><p className={styles.trainingNote}>Networking coursework completed through Cisco Networking Academy.</p></div>
             <div><h3>Languages</h3><ul>{languages.map(item => <li key={item.id}>{item.name} — {item.proficiency}</li>)}</ul></div>
           </div>
         </Section>

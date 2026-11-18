@@ -21,7 +21,7 @@ export const certifications: Certification[] = [
     "name": "CCNA 1, 2 and 3 course certificates",
     "issuer": "Cisco Networking Academy",
     "issueDate": "",
-    "description": "Course certificates; not a claim of CCNA professional exam certification."
+    "description": "Completed CCNA 1, 2 and 3 courses through Cisco Networking Academy."
   },
   {
     "id": "cyberops",
